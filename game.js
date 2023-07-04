@@ -14,6 +14,51 @@ function generate() {
     for (let i = 0; i < arr.length - 1; i++) {
       newArr.push(arr[i]);
       a = Math.atan2(arr[i].y - arr[i + 1].y, arr[i].x - arr[i + 1].x);
+      if(iteration === Math.floor(n)) {
+      if (dir === 0) {
+        newArr.push({
+          x:
+            arr[i].x +
+            Math.cos(a) * (dist / 2) +
+            Math.cos(a + dir - (Math.PI / 3) * 2) * (dist / 2) * (n - Math.floor(n)),
+          y:
+            arr[i].y +
+            Math.sin(a) * (dist / 2) +
+            Math.sin(a + dir - (Math.PI / 3) * 2) * (dist / 2) * (n - Math.floor(n)),
+        });
+        newArr.push({
+          x:
+            arr[i].x +
+            Math.cos(a) * (dist / 2) +
+            Math.cos(a + dir - Math.PI / 3) * (dist / 2) * (n - Math.floor(n)),
+          y:
+            arr[i].y +
+            Math.sin(a) * (dist / 2) +
+            Math.sin(a + dir - Math.PI / 3) * (dist / 2) * (n - Math.floor(n)),
+        });
+      } else {
+        newArr.push({
+          x:
+            arr[i].x +
+            Math.cos(a) * (dist / 2) +
+            Math.cos(a + dir - Math.PI / 3) * (dist / 2) * (n - Math.floor(n)),
+          y:
+            arr[i].y +
+            Math.sin(a) * (dist / 2) +
+            Math.sin(a + dir - Math.PI / 3) * (dist / 2) * (n - Math.floor(n)),
+        });
+        newArr.push({
+          x:
+            arr[i].x +
+            Math.cos(a) * (dist / 2) +
+            Math.cos(a + dir - (Math.PI / 3) * 2) * (dist / 2) * (n - Math.floor(n)),
+          y:
+            arr[i].y +
+            Math.sin(a) * (dist / 2) +
+            Math.sin(a + dir - (Math.PI / 3) * 2) * (dist / 2) * (n - Math.floor(n)),
+        });
+      }
+    }else{
       if (dir === 0) {
         newArr.push({
           x:
@@ -57,6 +102,7 @@ function generate() {
             Math.sin(a + dir - (Math.PI / 3) * 2) * (dist / 2),
         });
       }
+    }
 
       dir === 0 ? (dir = Math.PI) : (dir = 0);
     }
@@ -81,25 +127,25 @@ function update() {
   if (isKeyPressed[87]) {
     //w
     n += 0.03;
-    console.log(n);
     generate();
   }
   if (isKeyPressed[83]) {
     //s
-    n -= 0.03;
-    console.log(n);
+    if(n > 0){
+      n -= 0.03;
+    }
     generate();
   }
   if (isKeyPressed[38]) {
     //up
     n += 0.03;
-    console.log(n);
     generate();
   }
   if (isKeyPressed[40]) {
     //down
-    n -= 0.03;
-    console.log(n);
+    if(n > 0){
+      n -= 0.03;
+    }
     generate();
   }
   //   for (let i = 0; i < 100; i++) {
